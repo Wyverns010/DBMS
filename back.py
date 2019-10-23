@@ -1,10 +1,13 @@
-import MySQLdb as mdb
-
+import mysql.connector
 class Database:
 
     def __init__(self, db):
-        self.conn = mdb.connect('localhost','root','root','fifa')
-
+        self.conn = mysql.connector.connect(
+			user = "root",
+			password = "root",
+			host = "127.0.0.1",
+			database = "fifa"
+			)
     def insert_players(self,name,country,position,age,height,weight,rating):
         self.cur.execute("INSERT INTO PLAYERS VALUES (%s,%s,%s,%s,%s,%s,%s)",(name,country,position,age,height,weight,rating))
         self.conn.commit()
