@@ -1,20 +1,18 @@
 import mysql.connector
+
 class Database:
 
-    def __init__(self, db):
+    def __init__(self): # was db before
         self.conn = mysql.connector.connect(
 			user = "root",
 			password = "root",
 			host = "127.0.0.1",
 			database = "fifa"
 			)
+
     def insert_players(self,name,country,position,age,height,weight,rating):
         self.cur.execute("INSERT INTO PLAYERS VALUES (%s,%s,%s,%s,%s,%s,%s)",(name,country,position,age,height,weight,rating))
         self.conn.commit()
-
-    # def insert_goals(self,id,goals):
-    #     self.cur.execute("INSERT INTO GOALS VALUES (%s,%s)",(id,goals))
-    #     self.conn.commit()
 
 	    
     def insert_teams(self,name,country,captain):
@@ -37,17 +35,32 @@ class Database:
         self.conn.commit()
 
 	    
-    def insert_players(self,name,country,position,age,height,weight,rating):
-        self.cur.execute("INSERT INTO PLAYERS VALUES (NULL,%s,%s,%s,%s,%s,%s,%s)",(name,country,position,age,height,weight,rating))
+    def insert_playsfor(self,team,name):
+        self.cur.execute("INSERT INTO PLAYS_FOR VALUES (%s,%s)",(team,name))
         self.conn.commit()
 
 	    
 	    
 
-    def view(self):
-        self.cur.execute("SELECT * FROM book")
+    def view_players(self):
+        self.cur.execute("SELECT * FROM PLAYERS")
         rows=self.cur.fetchall()
         return rows
+
+    def view_teams(self):
+        self.cur.execute("SELECT * FROM TEAMS")
+        rows=self.cur.fetchall()
+        return rows
+
+    def view_scorers(self):
+        self.cur.execute("SELECT * FROM GOALS")
+        rows=self.cur.fetchall()
+        return rows
+
+    def view_bookings(self):
+        self.cur.execute("SELECT * FROM BOOKINGS")
+        rows=self.cur.fetchall()
+        return rows    
 
     def search(self,title="",author="",year="",isbn=""):
         self.cur.execute("SELECT * FROM book WHERE title=? OR author=? OR year=? OR isbn=?", (title,author,year,isbn))
