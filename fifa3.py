@@ -7,13 +7,11 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from back import Database
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1196, 666)
+        MainWindow.resize(1196, 671)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -62,7 +60,7 @@ class Ui_MainWindow(object):
         self.tableView_players.setGeometry(QtCore.QRect(610, 10, 511, 581))
         self.tableView_players.setObjectName("tableView_players")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.Players_tab)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 510, 571, 71))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(20, 510, 571, 71))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -80,7 +78,7 @@ class Ui_MainWindow(object):
         self.pushButton_players_in.setObjectName("pushButton_players_in")
         self.horizontalLayout.addWidget(self.pushButton_players_in)
         self.formLayoutWidget = QtWidgets.QWidget(self.Players_tab)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(20, 10, 571, 528))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(20, 10, 571, 481))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setFieldGrowthPolicy(QtWidgets.QFormLayout.ExpandingFieldsGrow)
