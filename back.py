@@ -16,8 +16,8 @@ class Database:
         self.conn.commit()
 
 
-    def insert_teams(self,name,country,captain):
-        self.cur.execute("INSERT INTO TEAMS VALUES (%s,%s,%s)",(name,country,captain))
+    def insert_teams(self,name,country):
+        self.cur.execute("INSERT INTO TEAMS VALUES (%s,%s)",(name,country))
         self.conn.commit()
 
 
@@ -26,7 +26,7 @@ class Database:
         self.conn.commit()
 
 
-    def insert_goals(self,id,name,team,goals):
+    def insert_goals(self,name,team,id,goals):
         self.cur.execute("INSERT INTO GOALS_MATCH VALUES (%s,%s,%s,%s)",(int(id),name,team,int(goals)))
         self.conn.commit()
 
@@ -59,6 +59,11 @@ class Database:
         return rows
 
     def view_scorers(self):
+        self.cur.execute("SELECT * FROM GOALS_MATCH")
+        rows=self.cur.fetchall()
+        return rows
+
+    def view_score(self):
         self.cur.execute("SELECT * FROM GOALS")
         rows=self.cur.fetchall()
         return rows
@@ -86,11 +91,11 @@ class Database:
 
 
     def update_player(self,name,country,position,age,height,weight,rating):
-        self.cur.execute("UPDATE PLAYERS SET country = %s, position = %s, age = %s, height = %s, weight = %s, rating = %s WHERE id=?",(country,position,int(age),int(height),int(weight),int(rating),name))
+        self.cur.execute("UPDATE PLAYERS SET country = %s, position = %s, age = %s, height = %s, weight = %s, rating = %s WHERE name=%s",(country,position,int(age),int(height),int(weight),int(rating),name))
         self.conn.commit()
 
-    def update_team(self,name,country,captain):
-        self.cur.execute("UPDATE TEAMS SET country=%s, captain=%s WHERE name = %s",(country,captain,name))
+    def update_team(self,name,country):
+        self.cur.execute("UPDATE TEAMS SET country=%s WHERE name = %s",(country,name))
         self.conn.commit()
 
     def update_match(self,id,t1,t2,loc,match_date):
@@ -98,7 +103,7 @@ class Database:
         self.conn.commit()
 
     def update_booking(self,name,yellow,red):
-        self.cur.execute("UPDATE book SET yellow_cards=%s, red_cards=%s WHERE name=%s",(int(yellow),int(red),name))
+        self.cur.execute("UPDATE BOOKINGS SET yellow_cards=%s, red_cards=%s WHERE PLAYER=%s",(int(yellow),int(red),name))
         self.conn.commit()
 
     def __del__(self):
