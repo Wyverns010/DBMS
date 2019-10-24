@@ -9,12 +9,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from back import Database
-from connector import Actions
+#from connector import Actions
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self.db = Database()
-        self.act = Actions()
+        #self.act = Actions()
         self.mainW = MainWindow
 
         MainWindow.setObjectName("MainWindow")
@@ -76,6 +76,13 @@ class Ui_MainWindow(object):
         self.pushButton_players_rm = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.pushButton_players_rm.setObjectName("pushButton_players_rm")
         self.horizontalLayout.addWidget(self.pushButton_players_rm)
+
+        self.pushButton_players_peek = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.pushButton_players_peek.setObjectName("pushButton_teams_peek")
+        self.pushButton_players_peek.setText("peek")
+        self.horizontalLayout.addWidget(self.pushButton_players_peek)
+        self.pushButton_players_peek.clicked.connect(self.players_peek)
+
         self.pushButton_players_up = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.pushButton_players_up.setObjectName("pushButton_players_up")
         self.horizontalLayout.addWidget(self.pushButton_players_up)
@@ -164,13 +171,15 @@ class Ui_MainWindow(object):
         self.pushButton_teams_rm = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.pushButton_teams_rm.setObjectName("pushButton_teams_rm")
         self.horizontalLayout_2.addWidget(self.pushButton_teams_rm)
+        self.pushButton_teams_rm.clicked.connect(self.teams_delete)
+
 
         self.pushButton_teams_peek = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.pushButton_teams_peek.setObjectName("pushButton_teams_peek")
         self.pushButton_teams_peek.setText("peek")
-        self.pushButton_teams_peek.clicked.connect(self.teams_update)
 
         self.horizontalLayout_2.addWidget(self.pushButton_teams_peek)
+        self.pushButton_teams_peek.clicked.connect(self.teams_peek)
 
         self.pushButton_teams_up = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.pushButton_teams_up.setObjectName("pushButton_teams_up")
@@ -225,6 +234,13 @@ class Ui_MainWindow(object):
         self.pushButton_bookings_rm = QtWidgets.QPushButton(self.horizontalLayoutWidget_3)
         self.pushButton_bookings_rm.setObjectName("pushButton_bookings_rm")
         self.horizontalLayout_3.addWidget(self.pushButton_bookings_rm)
+
+        self.pushButton_bookings_peek = QtWidgets.QPushButton(self.horizontalLayoutWidget_3)
+        self.pushButton_bookings_peek.setObjectName("pushButton_bookings_peek")
+        self.pushButton_bookings_peek.setText("peek")
+        self.horizontalLayout_3.addWidget(self.pushButton_bookings_peek)
+        self.pushButton_bookings_peek.clicked.connect(self.bookings_peek)
+
         self.pushButton_bookings_up = QtWidgets.QPushButton(self.horizontalLayoutWidget_3)
         self.pushButton_bookings_up.setObjectName("pushButton_bookings_up")
         self.horizontalLayout_3.addWidget(self.pushButton_bookings_up)
@@ -278,6 +294,13 @@ class Ui_MainWindow(object):
         self.pushButton_matches_rm = QtWidgets.QPushButton(self.horizontalLayoutWidget_4)
         self.pushButton_matches_rm.setObjectName("pushButton_matches_rm")
         self.horizontalLayout_4.addWidget(self.pushButton_matches_rm)
+
+        self.pushButton_matches_peek = QtWidgets.QPushButton(self.horizontalLayoutWidget_4)
+        self.pushButton_matches_peek.setObjectName("pushButton_teams_peek")
+        self.pushButton_matches_peek.setText("peek")
+        self.horizontalLayout_4.addWidget(self.pushButton_matches_peek)
+        self.pushButton_players_peek.clicked.connect(self.matches_peek)
+
         self.pushButton_matches_up = QtWidgets.QPushButton(self.horizontalLayoutWidget_4)
         self.pushButton_matches_up.setObjectName("pushButton_matches_up")
         self.horizontalLayout_4.addWidget(self.pushButton_matches_up)
@@ -341,6 +364,13 @@ class Ui_MainWindow(object):
         self.pushButton_match_goals_rm = QtWidgets.QPushButton(self.horizontalLayoutWidget_5)
         self.pushButton_match_goals_rm.setObjectName("pushButton_match_goals_rm")
         self.horizontalLayout_5.addWidget(self.pushButton_match_goals_rm)
+
+        self.pushButton_match_goals_peek = QtWidgets.QPushButton(self.horizontalLayoutWidget_5)
+        self.pushButton_match_goals_peek.setObjectName("pushButton_match_goals_peek")
+        self.pushButton_match_goals_peek.setText("peek")
+        self.horizontalLayout_5.addWidget(self.pushButton_match_goals_peek)
+        self.pushButton_match_goals_peek.clicked.connect(self.match_goals_peek)
+
         self.pushButton_match_goals_up = QtWidgets.QPushButton(self.horizontalLayoutWidget_5)
         self.pushButton_match_goals_up.setObjectName("pushButton_match_goals_up")
         self.horizontalLayout_5.addWidget(self.pushButton_match_goals_up)
@@ -582,41 +612,8 @@ class Ui_MainWindow(object):
         self.x = self.tableView_teams.currentRow()
         self.y = self.tableView_teams.currentColumn()
         print("------"+str(self.x)+"-----"+str(self.y))
-        # msg1 = QtWidgets.QMessageBox.question(self.mainW,'Quit App',"are you sure?",QtWidgets.QMessageBox.Yes,QtWidgets.QMessageBox.No)
-        # if msg1 == QtWidgets.QMessageBox.Yes:
-        #     exit()
-        # else:
-        #     print('Unable to Exit! Use the option under File menu')
-        #self.mainW.setAutoFillBackground(False)
-        # inp = QtWidgets.QInputDialog()
-        # p = inp.palette()
-        # p.setColor(inp.backgroundRole(), QtCore.Qt.red)
-        # inp.setPalette(p)
-        # text,ok = inp.getText(self.mainW, 'Text Input Dialog', 'Enter your name:')
-        # print(text)
-
-        # inp = QtWidgets.QInputDialog(self.mainW)
-        #
-        # ##### SOME SETTINGS
-        # inp.setInputMode(QtWidgets.QInputDialog.TextInput)
-        # inp.setFixedSize(400, 200)
-        # inp.setOption(QtWidgets.QInputDialog.UsePlainTextEditForTextInput)
-        # p = inp.palette()
-        # p.setColor(inp.backgroundRole(), QtCore.Qt.red)
-        # inp.setPalette(p)
-        #
-        # inp.setWindowTitle('title')
-        # inp.setLabelText('description')
-        # #####
-        #
-        # if inp.exec_() == QtWidgets.QDialog.Accepted:
-        #     print(inp.textValue())
-        # else:
-        #     print('cancel')
-
         num_rows = self.tableView_teams.rowCount()
         num_columns = self.tableView_teams.columnCount()
-
 
         try:
             self.textEdit_teams_nm.setPlainText(self.tableView_teams.item(self.x,0).text())
@@ -625,15 +622,81 @@ class Ui_MainWindow(object):
         except:
             pass
 
-        def teams_update(self):            
+    def players_peek(self):
+        self.x = self.tableView_teams.currentRow()
+        self.y = self.tableView_teams.currentColumn()
+        #print("------"+str(self.x)+"-----"+str(self.y))
+        num_rows = self.tableView_teams.rowCount()
+        num_columns = self.tableView_teams.columnCount()
 
-        # name = self.textEdit_teams_nm.toPlainText()
-        # #print(player_name)
-        #
-        # player_country = self.textEdit_teams_cntry.toPlainText()
-        # player_captain = self.textEdit_teams_cptn.toPlainText()
-        #
-        # self.db.update_team(name,player_country,player_captain)
+        try:
+            self.textEdit_teams_nm.setPlainText(self.tableView_teams.item(self.x,0).text())
+            self.textEdit_teams_cntry.setPlainText(self.tableView_teams.item(self.x,1).text())
+            self.textEdit_teams_cptn.setPlainText(self.tableView_teams.item(self.x,2).text())
+        except:
+            pass
+
+    def bookings_peek(self):
+        self.x = self.tableView_teams.currentRow()
+        self.y = self.tableView_teams.currentColumn()
+        #print("------"+str(self.x)+"-----"+str(self.y))
+        num_rows = self.tableView_teams.rowCount()
+        num_columns = self.tableView_teams.columnCount()
+
+        try:
+            self.textEdit_teams_nm.setPlainText(self.tableView_teams.item(self.x,0).text())
+            self.textEdit_teams_cntry.setPlainText(self.tableView_teams.item(self.x,1).text())
+            self.textEdit_teams_cptn.setPlainText(self.tableView_teams.item(self.x,2).text())
+        except:
+            pass
+
+    def match_goals_peek(self):
+        self.x = self.tableView_teams.currentRow()
+        self.y = self.tableView_teams.currentColumn()
+        #print("------"+str(self.x)+"-----"+str(self.y))
+        num_rows = self.tableView_teams.rowCount()
+        num_columns = self.tableView_teams.columnCount()
+
+        try:
+            self.textEdit_teams_nm.setPlainText(self.tableView_teams.item(self.x,0).text())
+            self.textEdit_teams_cntry.setPlainText(self.tableView_teams.item(self.x,1).text())
+            self.textEdit_teams_cptn.setPlainText(self.tableView_teams.item(self.x,2).text())
+        except:
+            pass
+
+    def matches_peek(self):
+        self.x = self.tableView_teams.currentRow()
+        self.y = self.tableView_teams.currentColumn()
+        #print("------"+str(self.x)+"-----"+str(self.y))
+        num_rows = self.tableView_teams.rowCount()
+        num_columns = self.tableView_teams.columnCount()
+
+        try:
+            self.textEdit_teams_nm.setPlainText(self.tableView_teams.item(self.x,0).text())
+            self.textEdit_teams_cntry.setPlainText(self.tableView_teams.item(self.x,1).text())
+            self.textEdit_teams_cptn.setPlainText(self.tableView_teams.item(self.x,2).text())
+        except:
+            pass
+
+    def teams_update(self):
+
+        name = self.textEdit_teams_nm.toPlainText()
+        player_country = self.textEdit_teams_cntry.toPlainText()
+        player_captain = self.textEdit_teams_cptn.toPlainText()
+
+        self.db.update_team(name,player_country,player_captain)
+
+    def teams_delete(self):
+
+        name = self.textEdit_teams_nm.toPlainText()
+        player_country = self.textEdit_teams_cntry.toPlainText()
+        player_captain = self.textEdit_teams_cptn.toPlainText()
+
+        self.db.delete_team(name)
+
+        self.textEdit_teams_nm.setPlainText("")
+        self.textEdit_teams_cntry.setPlainText("")
+        self.textEdit_teams_cptn.setPlainText("")
 
 
 
